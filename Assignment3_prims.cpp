@@ -32,6 +32,19 @@ public:
 
 	}
 
+
+	void readEdges()
+    {
+        int u , v , w;
+        while(1)
+        {
+            cin>>u>>v>>w;
+            if(u== -1)break;
+            graph[u][v]= w;
+            graph[v][u] = w;
+        }
+    }
+	
 	void read_matrix()
 	{
 		int i, j;
