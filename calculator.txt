@@ -1,0 +1,130 @@
+ScientificCalculatorController file name
+
+
+
+public class ScientificCalculatorController {
+    public Double input1 { get; set; }
+    public Double input2 { get; set; }
+    public Double result { get; set; }
+    public String errorMsg { get; set; }
+
+    private Double toRadians(Double degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    public void doAdd() {
+        clearMsg();
+        result = input1 + input2;
+    }
+
+    public void doSubtract() {
+        clearMsg();
+        result = input1 - input2;
+    }
+
+    public void doMultiply() {
+        clearMsg();
+        result = input1 * input2;
+    }
+
+    public void doDivide() {
+        clearMsg();
+        if (input2 != 0) {
+            result = input1 / input2;
+        } else {
+            errorMsg = 'Division by zero';
+        }
+    }
+
+    public void doSin() {
+        clearMsg();
+        result = Math.sin(toRadians(input1));
+    }
+
+    public void doCos() {
+        clearMsg();
+        result = Math.cos(toRadians(input1));
+    }
+
+    public void doTan() {
+        clearMsg();
+        result = Math.tan(toRadians(input1));
+    }
+
+    public void doSqrt() {
+        clearMsg();
+        if (input1 >= 0) {
+            result = Math.sqrt(input1);
+        } else {
+            errorMsg = 'Cannot compute square root of negative number';
+        }
+    }
+
+    public void doPower() {
+        clearMsg();
+        result = Math.pow(input1, input2);
+    }
+
+    public void doLog() {
+        clearMsg();
+        if (input1 > 0) {
+            result = Math.log(input1);
+        } else {
+            errorMsg = 'Logarithm undefined for non-positive values';
+        }
+    }
+
+    private void clearMsg() {
+        errorMsg = null;
+        result = null;
+    }
+}
+
+
+
+
+
+ScientificCalculator
+
+<apex:page controller="ScientificCalculatorController">
+    <apex:form >
+        <apex:pageBlock title="Scientific Calculator">
+            <apex:pageBlockSection columns="1" title="Inputs" collapsible="false">
+                <div style="text-align:center;">
+                    <apex:outputLabel value="Input 1" for="input1" style="font-weight:bold;" />
+                    <br/>
+                    <apex:inputText id="input1" value="{!input1}" style="width:200px;" />
+                    <br/><br/>
+                    <apex:outputLabel value="Input 2 (Optional)" for="input2" style="font-weight:bold;" />
+                    <br/>
+                    <apex:inputText id="input2" value="{!input2}" style="width:200px;" />
+                </div>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Operations">
+                <div style="text-align:center; margin-top:10px;">
+                    <apex:commandButton value="Add" action="{!doAdd}" />
+                    <apex:commandButton value="Subtract" action="{!doSubtract}" />
+                    <apex:commandButton value="Multiply" action="{!doMultiply}" />
+                    <apex:commandButton value="Divide" action="{!doDivide}" />
+                    <br/><br/>
+                    <apex:commandButton value="Sin" action="{!doSin}" />
+                    <apex:commandButton value="Cos" action="{!doCos}" />
+                    <apex:commandButton value="Tan" action="{!doTan}" />
+                    <br/><br/>
+                    <apex:commandButton value="Sqrt" action="{!doSqrt}" />
+                    <apex:commandButton value="Power" action="{!doPower}" />
+                    <apex:commandButton value="Log" action="{!doLog}" />
+                </div>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Result">
+                <div style="text-align:center; margin-top:10px;">
+                    <apex:outputText value="Result: {!ROUND(result, 6)}" rendered="{!NOT(ISNULL(result))}" style="font-weight:bold;" />
+                    <br/>
+                    <apex:outputText value="Error: {!errorMsg}" rendered="{!NOT(ISNULL(errorMsg))}" style="color:red; font-weight:bold;" />
+                </div>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
