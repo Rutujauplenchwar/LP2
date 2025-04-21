@@ -135,3 +135,21 @@ int main()
     cout << "BFS ==> "<<endl;
     bfs(root, x);
 }
+
+
+
+// Node* createTree() {
+//     int value;
+//     cout << "Enter node value (-1 for NULL): ";
+//     cin >> value;
+
+//     if (value == -1) return nullptr;
+
+//     Node* newNode = new Node(value);
+//     cout << "Enter left child of " << value << endl;
+//     newNode->left = createTree();
+//     cout << "Enter right child of " << value << endl;
+//     newNode->right = createTree();
+
+//     return newNode;
+// }
